@@ -16,14 +16,14 @@ exports.handler = async (event,context,callback) => {
     })
 };
 function verPedido(event){
+    let idPedido = event.params.querystring.idpedido;
     let idLocal = event.params.querystring.idlocal;
-    let idProducto = event.params.querystring.idproducto;
     const params = {
         TableName: 'Pedido',
-        KeyConditionExpression: 'idLocal = :idlocal AND idProducto = :idproducto',
+        KeyConditionExpression: 'idPedido = :idpedido AND idLocal = :idlocal',
         ExpressionAttributeValues:{
             ':idlocal':idLocal,
-            ':idproducto':idProducto
+            ':idpedido':idPedido,
         }
     }
     return ddb.query(params).promise();
